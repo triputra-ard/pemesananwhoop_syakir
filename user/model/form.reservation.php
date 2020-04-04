@@ -8,7 +8,7 @@ if (isset($_GET['reservation'])):
 
   $add = "INSERT into whoop_reservasi(id_reservasi,id_user,id_paket,tgl_reservasi,status_reservasi)
   VALUES('$id','$user','$paket','$time',DEFAULT)";
-  $query = mysql_query($add);
+  $query = mysqli_query($db,$add);
   $refer = encrypt($id);
   echo "<script>alert('Ditambahkan');
   window.location.replace('package.reservation?create=$refer');</script>";
@@ -20,8 +20,8 @@ if (isset($_GET['reservation'])):
   JOIN
   whoop_paket b ON a.id_paket = b.id_paket
   WHERE a.id_reservasi = '$id'";
-  $query = mysql_query($fetch);
-  while ($reservation = mysql_fetch_assoc($query)) {
+  $query = mysqli_query($db,$fetch);
+  while ($reservation = mysqli_fetch_assoc($query)) {
    ?>
   <h3 class="text-center"><?php echo $reservation['nama_paket'] ?> (Rp. <?php echo number_format($reservation['harga_paket'],0,',','.'); ?>)</h3>
   <form id="form"  action="control/script.reservation" method="post">
